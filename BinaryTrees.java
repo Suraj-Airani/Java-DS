@@ -89,6 +89,41 @@ public class BinaryTrees {
 
         return Math.max(leftHeight,rightHeight) + 1;
     }
+    public static int diameterOfTree(Node root){  // approach 1 TC: O(N^2)
+        if(root == null) return 0;
+        int d1 = diameterOfTree(root.left);
+        int d2 = diameterOfTree(root.right);
+        int d3 = heightOfTree(root.left)+heightOfTree(root.right)+1;
+        System.out.println(d3);
+
+        return Math.max(Math.max(d1, d2), d3);
+    }
+    static class TreeInfo{  // for approach 2 calculating diameter of tree TC: O(N)
+        int ht,diam;
+        
+        TreeInfo(int ht, int diam){
+            this.ht = ht;
+            this.diam = diam;
+        }
+    }
+    public static TreeInfo diam2(Node root){
+        if(root == null) return new TreeInfo(0, 0);
+
+        TreeInfo left = diam2(root.left);
+        TreeInfo right = diam2(root.right);
+
+        int myHeight = Math.max(left.ht, right.ht)+1;
+        
+        int diam1 = left.diam;
+        int diam2 = right.diam;
+        int diam3 = left.ht + right.ht + 1;
+        
+        int myDiameter = Math.max(Math.max(diam1, diam2), diam3);
+
+        TreeInfo myInfo = new TreeInfo(myHeight, myDiameter);
+
+        return myInfo;
+    }
 
     public static void main(String[] args) {
         int[] nodes = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
