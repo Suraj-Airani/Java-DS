@@ -68,62 +68,6 @@ public class BinaryTrees {
             }
         }
     }
-    public static int countNodes(Node root){ // TC:O(N)
-        if(root == null) return 0;
-        int leftNodes = countNodes(root.left);
-        int rightNodes = countNodes(root.right);
-
-        return leftNodes + rightNodes + 1;
-    }
-    public static int sumNodes(Node root){ // TC: O(N)
-        if(root == null) return 0;
-        int leftSum = sumNodes(root.left);
-        int rightSum = sumNodes(root.right);
-
-        return leftSum + rightSum + root.data;
-    }
-    public static int heightOfTree(Node root){ // TC: O(N)
-        if(root == null) return 0;
-        int leftHeight = heightOfTree(root.left);
-        int rightHeight = heightOfTree(root.right);
-
-        return Math.max(leftHeight,rightHeight) + 1;
-    }
-    public static int diameterOfTree(Node root){  // approach 1 TC: O(N^2)
-        if(root == null) return 0;
-        int d1 = diameterOfTree(root.left);
-        int d2 = diameterOfTree(root.right);
-        int d3 = heightOfTree(root.left)+heightOfTree(root.right)+1;
-        System.out.println(d3);
-
-        return Math.max(Math.max(d1, d2), d3);
-    }
-    static class TreeInfo{  // for approach 2 calculating diameter of 
-        int ht,diam;
-        
-        TreeInfo(int ht, int diam){
-            this.ht = ht;
-            this.diam = diam;
-        }
-    }
-    public static TreeInfo diam2(Node root){
-        if(root == null) return new TreeInfo(0, 0);
-
-        TreeInfo left = diam2(root.left);
-        TreeInfo right = diam2(root.right);
-
-        int myHeight = Math.max(left.ht, right.ht)+1;
-        
-        int diam1 = left.diam;
-        int diam2 = right.diam;
-        int diam3 = left.ht + right.ht + 1;
-        
-        int myDiameter = Math.max(Math.max(diam1, diam2), diam3);
-
-        TreeInfo myInfo = new TreeInfo(myHeight, myDiameter);
-
-        return myInfo;
-    }
 
     public static void main(String[] args) {
         int[] nodes = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
